@@ -28,9 +28,16 @@ public class Levenshtein {
         return costs[b.length()];
     }
 
+    public static double getSimilarity(String s, String t)
+    {
+        int edit = distance(s, t);
+        double sim = 1 / Math.exp(edit / (double) (s.length() + t.length() - edit));
+        return sim;
+    }
+
     public static void main(String [] args) {
-        String [] data = { "kitten", "sitting", "saturday", "sunday", "rosettacode", "raisethysword" };
+        String [] data = { "kitten", "sitting", "saturday", "sunday", "rosettacode", "raisethysword", "getDrink", "getWine" };
         for (int i = 0; i < data.length; i += 2)
-            System.out.println("distance(" + data[i] + ", " + data[i+1] + ") = " + distance(data[i], data[i+1]));
+            System.out.println("distance(" + data[i] + ", " + data[i+1] + ") = " + distance(data[i], data[i+1]) + ", similarity=["+getSimilarity(data[i], data[i+1])+"]");
     }
 }
